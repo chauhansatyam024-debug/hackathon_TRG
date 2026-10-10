@@ -1,0 +1,46 @@
+{
+  "name": "pc-app",
+  "version": "1.0.0",
+  "description": "Screenshot Graveyard Desktop Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Developer",
+    "email": "dev@example.com"
+  },
+  "homepage": "https://github.com/example/screenshot-graveyard",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.20.0",
+    "chokidar": "^5.0.0",
+    "form-data": "^4.0.6"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.screenshotgraveyard.app",
+    "productName": "Screenshot Graveyard",
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "^26.15.3"
+  }
+}

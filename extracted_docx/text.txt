@@ -1,0 +1,57 @@
+SCREENSHOT GRAVEYARD SOLVER
+
+Original design prompt
+
+Design a polished, human-made feeling UI/UX for Screenshot Graveyard Solver, a web app that turns screenshots into organized tasks.
+
+The core flow is simple: a user drops screenshots into a watched folder, the app reads them, extracts action items, and shows the results in a task dashboard. Each task can show its title, source screenshot, priority, due date, assignee, and extraction status.
+
+Aim for the feel of a thoughtfully designed productivity tool: clear, calm, practical, and distinctive. Avoid the generic AI-product look: no glowing gradients, floating brains, excessive glassmorphism, decorative sparkles, oversized rounded cards, or dashboard clutter. Use a restrained palette, strong typography, deliberate spacing, and a few purposeful visual details. Make the hierarchy obvious at a glance.
+
+Design these states:
+
+Dashboard: tasks grouped by status or due date, with clear priority cues and useful filters.
+
+Screenshot intake: show when new screenshots are detected and how many are waiting to be processed.
+
+Task review: make extracted details easy to confirm or edit, and keep the source screenshot accessible for context.
+
+Empty state: explain how to add screenshots and what will happen next.
+
+Error state: clearly identify screenshots the app could not read and offer a simple retry path.
+
+Keep the experience fast to scan and easy to use. Use realistic sample tasks from Slack messages, emails, and meeting notes. Make buttons, navigation, and task rows feel like a real product someone could use every day. Prioritize accessibility, readable contrast, keyboard navigation, and responsive layouts.
+
+The finished design should feel specific to rescuing forgotten tasks from a screenshot backlog, not like a generic AI dashboard.
+
+Source screenshot
+
+Generated Slack conversation used as a task’s source image.
+
+
+
+Task dashboard
+
+Desktop dashboard with priority, due dates, assignees, extraction status, and the unreadable-screenshot notice.
+
+
+
+Task review
+
+Editable task details alongside the source screenshot.
+
+
+
+Empty search results
+
+The dashboard when no tasks match the search.
+
+
+
+Mobile dashboard
+
+Phone-sized layout with compact task rows and navigation.
+
+
+
+Screenshot Graveyard Solver  |

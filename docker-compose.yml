@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+    ports:
+      - "3001:3001"
+    environment:
+      - AI_SERVICE_URL=http://ai-service:8000
+      - BACKEND_URL=http://backend:8081
+      - SMTP_USERNAME=${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - JWT_SECRET=${JWT_SECRET:-hackathon_secret}
+    depends_on:
+      - backend
+      - ai-service
+    networks:
+      - sg_network
+
+  backend:
+    build:
+      context: ./backend
+    expose:
+      - "8081"
+    volumes:
+      - db-data:/app
+    networks:
+      - sg_network
+
+  ai-service:
+    build:
+      context: ./ai-service
+    expose:
+      - "8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=gemini-flash-lite-latest
+    volumes:
+      - storage-data:/app/storage
+    networks:
+      - sg_network
+
+networks:
+  sg_network:
+    driver: bridge
+
+volumes:
+  db-data:
+  storage-data:

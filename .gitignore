@@ -1,0 +1,41 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+.env
+
+# Rust
+frontend/target/
+**/*.rs.bk
+
+# C++
+backend/build/
+backend/CMakeCache.txt
+backend/CMakeFiles/
+backend/Makefile
+backend/cmake_install.cmake
+backend/tasks.db
+backend/tasks.db-wal
+backend/tasks.db-shm
+
+# Python
+ai-service/__pycache__/
+ai-service/*.py[cod]
+ai-service/.pytest_cache/
+
+# OS/IDE
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.pem
+
+# Local Data
+pc-app/ss_folder/
+frontend/static/uploads/

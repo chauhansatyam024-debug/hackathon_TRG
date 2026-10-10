@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Screenshot Graveyard Solver - AI-powered screenshot to task converter.">
+    <title>Screenshot Graveyard Solver — AI Task Extractor</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo-group">
+                <div class="logo-3d">
+                    <div class="logo-cube"></div>
+                </div>
+                <div class="logo-text">
+                    <h1>Screenshot Graveyard</h1>
+                    <span class="logo-subtitle">AI Task Extractor</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-indicator" id="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Systems Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card 3d-panel" id="auth-card-email">
+            <h2>Welcome Back</h2>
+            <p>Enter your email to authenticate.</p>
+            <input type="email" id="auth-email-input" class="auth-input 3d-input" placeholder="you@example.com">
+            <button id="auth-send-btn" class="btn btn-primary 3d-button">Send Authentication Code</button>
+            <div id="auth-email-error" class="auth-error"></div>
+        </div>
+
+        <div class="auth-card 3d-panel" id="auth-card-otp" style="display: none;">
+            <h2>Enter Security Code</h2>
+            <p>A 6-digit code has been sent to <span id="auth-display-email"></span>.</p>
+            <input type="text" id="auth-otp-input" class="auth-input 3d-input" placeholder="123456" maxlength="6">
+            <button id="auth-verify-btn" class="btn btn-primary 3d-button">Verify & Login</button>
+            <button id="auth-back-btn" class="btn btn-ghost 3d-button-ghost" style="margin-top: 15px;">Return</button>
+            <div id="auth-otp-error" class="auth-error"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content" style="display: none;">
+        <!-- Dashboard Section -->
+        <section class="dashboard-section">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Task Dashboard</h2>
+                <div class="filter-bar 3d-panel-inset">
+                    <div class="filter-group">
+                        <label class="filter-label">Status</label>
+                        <select class="filter-select 3d-input" id="filter-status">
+                            <option value="">All Tasks</option>
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Source</label>
+                        <select class="filter-select 3d-input" id="filter-source">
+                            <option value="">All Sources</option>
+                            <option value="ocr">AI Extracted</option>
+                            <option value="manual">Manual Entry</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-sm 3d-button-ghost" id="refresh-btn">
+                        ↻ Refresh Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row" id="stats-row">
+                <div class="stat-card 3d-panel stat-default">
+                    <span class="stat-value" id="stat-total">0</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-card 3d-panel stat-pending">
+                    <span class="stat-value" id="stat-pending">0</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-card 3d-panel stat-progress">
+                    <span class="stat-value" id="stat-progress">0</span>
+                    <span class="stat-label">In Progress</span>
+                </div>
+                <div class="stat-card 3d-panel stat-completed">
+                    <span class="stat-value" id="stat-completed">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Top: Calendar -->
+            <div class="calendar-container 3d-panel" id="calendar-container">
+                <div class="calendar-header">
+                    <button class="btn btn-ghost 3d-button-ghost btn-sm" id="prev-month" onclick="changeMonth(-1)">&lt;</button>
+                    <h3 id="calendar-month-year"></h3>
+                    <button class="btn btn-ghost 3d-button-ghost btn-sm" id="next-month" onclick="changeMonth(1)">&gt;</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Calendar cells generated by JS -->
+                </div>
+            </div>
+
+            <!-- Task Folders Empty State -->
+            <div class="task-grid-empty 3d-panel-inset" id="task-grid-empty">
+                <div class="empty-shape"></div>
+                <h3>No Active Tasks</h3>
+                <p>Drop a screenshot into your inbox to initiate AI extraction.</p>
+            </div>
+
+            <!-- Task Folders -->
+            <div class="folders-container" id="folders-container">
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>Powered by Rust Axum | C++ Crow | Python FastAPI | Google Gemini AI</p>
+    </footer>
+
+    <!-- Task Review Modal -->
+    <div id="review-modal" class="auth-overlay" style="display: none;">
+        <div class="review-card 3d-panel">
+            <div class="review-header">
+                <h2>Review Task Details</h2>
+                <button id="close-review-btn" class="btn btn-ghost 3d-button-ghost btn-sm">Close</button>
+            </div>
+            <div class="review-body">
+                <div class="review-image 3d-panel-inset">
+                    <p class="review-label">Source Visualization</p>
+                    <div id="review-image-container" class="image-placeholder">Source Unavailable</div>
+                </div>
+                <div class="review-details">
+                    <p class="review-label">Extracted Metrics</p>
+                    <input type="text" id="review-title" class="auth-input 3d-input" placeholder="Task Designation">
+                    <textarea id="review-desc" class="auth-input 3d-input" rows="4" placeholder="Detailed Specification"></textarea>
+                    
+                    <div class="review-row">
+                        <div style="flex: 1;">
+                            <label class="review-label">Priority Level</label>
+                            <select id="review-priority" class="auth-input 3d-input">
+                                <option value="urgent">Urgent</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="review-label">Target Deadline</label>
+                            <input type="text" id="review-date" class="auth-input 3d-input" placeholder="e.g. Next Week">
+                        </div>
+                    </div>
+                    
+                    <button id="save-review-btn" class="btn btn-primary 3d-button" style="width: 100%; margin-top: 15px;">Commit Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>
