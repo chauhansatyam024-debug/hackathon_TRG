@@ -684,7 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = 'Committing...';
 
         try {
-            await fetch(`${API_BASE}/tasks/${currentReviewTask.id}`, {
+            const response = await fetch(`${API_BASE}/tasks/${currentReviewTask.id}`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -692,6 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(updateData),
             });
+            if (!response.ok) throw new Error(`Server returned ${response.status}`);
             showToast('Task synchronized successfully', 'success');
             document.getElementById('review-modal').style.display = 'none';
             fetchTasks();

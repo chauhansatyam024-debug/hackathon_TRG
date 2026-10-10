@@ -190,7 +190,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let protected_routes = Router::new()
         .route("/tasks", get(list_tasks))
-        .route("/tasks/{id}", get(get_task).put(update_task).delete(delete_task))
+        .route("/tasks/:id", get(get_task).put(update_task).delete(delete_task))
         .route("/upload", post(upload_screenshot))
         .layer(middleware::from_fn(auth::auth_middleware));
 

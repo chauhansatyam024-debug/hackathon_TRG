@@ -26,18 +26,19 @@ Subtitle: An AI-Powered Cross-Platform Task Extraction Ecosystem
 - 🤖 **AI-Powered OCR:** Automatically identifies tasks, priorities, and deadlines using Gemini 2.0 Vision.
 - 🔄 **Cross-Platform Sync:** Works seamlessly across the PC Desktop App, Web Dashboard, and Android Mobile App.
 - 🔒 **Passwordless Security:** Highly secure Email OTP Authentication (no hardcoded passwords).
-- ⚡ **Task Review Pane:** Side-by-side verification allowing users to edit AI-extracted details while viewing the source screenshot.
+- ⚡ **Visual Task Review:** Side-by-side verification allowing users to edit AI-extracted details while viewing the actual source screenshot inside the app.
+- 📅 **Real-Time Calendar Integration:** Instant synchronization between UI edits and the interactive dashboard calendar.
 - 📂 **Auto-Sorting:** Automatically watches folders, processing important screenshots and ignoring irrelevant ones.
 
 ---
 
 # Slide 5: The Technology Stack (Our Architecture)
 **A High-Performance Microservice Backend**
-- **Rust (Axum):** Ultra-fast API Gateway handling routing and secure JWT authentication.
-- **C++ (Crow & SQLite):** Blazing-fast backend managing task storage and retrieval with minimal memory footprint.
+- **Rust (Axum):** Ultra-fast API Gateway handling robust routing and secure JWT authentication.
+- **C++ (Crow & SQLite):** Blazing-fast backend managing task storage, data migration, and retrieval with minimal memory footprint.
 - **Python (FastAPI):** AI microservice integrated with Google Gemini Vision API for state-of-the-art OCR.
-- **Frontend / Client:** Electron (PC App), Vanilla HTML/CSS/JS (Clean Light-Mode UI), and Android (Mobile).
-- **Deployment:** Containerized via Docker and hosted live on an AWS EC2 Cloud instance.
+- **Frontend / Client:** Electron (PC App with local file watchers), Vanilla HTML/CSS/JS (Clean Light-Mode UI).
+- **Deployment:** Containerized via Docker and hosted live on an AWS EC2 Cloud instance, utilizing pre-compiled multi-stage container uploads to overcome severe cloud hardware constraints.
 
 ---
 

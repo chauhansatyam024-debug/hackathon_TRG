@@ -8,7 +8,7 @@ const skillDir = "/home/satyamchauhan/.codex/plugins/cache/openai-primary-runtim
 const runtimeNodeModules = "/home/satyamchauhan/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules";
 process.env.RUNTIME_NODE_MODULES = runtimeNodeModules;
 const inputPath = path.join(workspaceDir, "National Hackathon 6.0.pptx");
-const finalPath = path.join(workspaceDir, "output", "hackathon-revised.pptx");
+const finalPath = path.join(workspaceDir, "output", "hackathon-latest.pptx");
 const stagingDir = path.join(workspaceDir, ".pptx-build", "updated-finalizer");
 const { makeNativeBulletParagraphs, finalizePresentation } = await import(pathToFileURL(path.join(skillDir, "container_tools/artifact_tool_utils.mjs")).href);
 const presentation = await PresentationFile.importPptx(await FileBlob.load(inputPath));
@@ -47,12 +47,13 @@ const originalSlides = [
     titleId: "sh/1cj2d8b6",
     title: "Key Features",
     bodyId: "sh/0ba143al",
-    size: 22,
+    size: 21,
     items: [
       "AI-powered OCR uses Gemini 2.0 Vision to identify tasks, priorities and deadlines.",
       "Cross-platform sync connects the PC desktop app, web dashboard and Android app.",
       "Passwordless email OTP authentication avoids hardcoded passwords.",
-      "A side-by-side review pane lets users verify and edit extracted details beside the source image.",
+      "Visual task review lets users edit extracted details while viewing the actual source screenshot inside the app.",
+      "UI edits sync instantly with the interactive dashboard calendar.",
       "Automatic folder monitoring processes useful screenshots and ignores irrelevant ones."
     ]
   },
@@ -60,13 +61,13 @@ const originalSlides = [
     titleId: "sh/dgbulwnm",
     title: "Technology Stack",
     bodyId: "sh/cf2tcr61",
-    size: 21.5,
+    size: 20,
     items: [
-      "Rust and Axum power the API gateway, routing and JWT authentication.",
-      "C++ with Crow and SQLite handles task storage and retrieval.",
+      "Rust and Axum power robust API routing and secure JWT authentication.",
+      "C++ with Crow and SQLite handles task storage, data migration and retrieval.",
       "Python and FastAPI connect the AI service to Google Gemini Vision for OCR.",
-      "Clients include an Electron PC app, a vanilla HTML/CSS/JavaScript web app and Android.",
-      "Docker containers run on an AWS EC2 cloud instance."
+      "Clients include an Electron PC app with local file watchers and a vanilla HTML/CSS/JavaScript light-mode web app.",
+      "Docker containers run on AWS EC2. Precompiled multi-stage images work around cloud hardware build constraints."
     ]
   },
   {
@@ -129,7 +130,7 @@ const result = await finalizePresentation({
   explicitTotalSlideCount: 8,
   fontPolicy: { basis: "reference", families: ["Corbel"], referencePath: inputPath, referenceSha256: "ff6e1cc3fa8eb19387ead569fec2225cba129675faa8aa35f55d5dae98ca380e" },
   verifyArtifactToolImport: true,
-  receiptPath: path.join(stagingDir, "hackathon-revised.pptx.validation.json"),
+  receiptPath: path.join(stagingDir, "hackathon-latest.pptx.validation.json"),
 });
 console.log(JSON.stringify(result, null, 2));
 
