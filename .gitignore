@@ -39,3 +39,4 @@ ai-service/.pytest_cache/
 # Local Data
 pc-app/ss_folder/
 frontend/static/uploads/
+*.tar
